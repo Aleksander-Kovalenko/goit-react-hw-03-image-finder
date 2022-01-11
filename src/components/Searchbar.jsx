@@ -1,7 +1,22 @@
 import { Component } from "react";
+import api from "./images-api";
 
 export class SearchBar extends Component {
-  state = { imageName: "" };
+  state = {
+    imageName: "",
+    listImg: "",
+  };
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   const prevName = prevProps.imageName;
+  //   const nextName = this.props.imageName;
+  //   if (prevName !== nextName) {
+  //     api
+  //       .fetchImages(nextName)
+  //       .then((listImg) => this.setState({ listImg }))
+  //       .catch((error) => this.setState({ error }));
+  //   }
+  // }
 
   handleInput = (e) => {
     const { value } = e.target;
