@@ -3,7 +3,6 @@ import "./App.css";
 import { Button } from "./components/Button";
 import { ImageGallery } from "./components/ImageGallery";
 import api from "./components/images-api";
-import { ImagesAPI } from "./components/ImagesInfo";
 import { Modal } from "./components/Modal";
 import { SearchBar } from "./components/Searchbar";
 
@@ -11,29 +10,42 @@ export class App extends Component {
   state = {
     imagesQuery: "",
     showModal: false,
-    listImages: null,
+    isLoader: false,
+    listImages: [],
     error: null,
-    page: 0,
+    page: 1,
   };
 
   componentDidUpdate(prevProps, prevState) {
     const prevQuery = prevState.imagesQuery;
     const nextQuery = this.state.imagesQuery;
+
     if (prevQuery !== nextQuery) {
-      api
-        .fetchImages(nextQuery)
-        .then((listImages) => this.setState({ listImages }))
-        .catch((error) => this.setState({ error }));
+      this.getImages();
     }
   }
-  handleClickModal = () => {
-    const { imagesQuery, page } = this.state;
-    this.setState((prevState) => ({ page: prevState.page + 1 }));
-    api.fetchImages(imagesQuery, page);
+
+  getImages = () => {
+    const { page, imagesQuery } = this.state;
+    const options = { page, imagesQuery };
+
+    api
+      .fetchImages(options)
+      .then((listImages) => {
+        this.setState((prevState) => ({
+          listImages: [...prevState.listImages, ...listImages.hits],
+          page: prevState.page + 1,
+        }));
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: "smooth",
+        });
+      })
+      .catch((error) => this.setState({ error }));
   };
 
   handleForm = (query) => {
-    this.setState({ imagesQuery: query });
+    this.setState({ imagesQuery: query, showButton: true });
   };
 
   onToggleModal = () => {
@@ -41,21 +53,17 @@ export class App extends Component {
   };
 
   render() {
-    const { showModal, listImages, handleClickModal } = this.state;
+    const { showModal, listImages } = this.state;
     return (
-      <>
+      <div className="App">
         <SearchBar submitForm={this.handleForm} />
-        {listImages && (
+        {listImages.length > 0 && (
           <>
             <ImageGallery items={listImages} />
-            <Button handleClick={handleClickModal} />
+            <Button handleClick={this.getImages} />
           </>
         )}
-        {/* <ImagesAPI imagesQuery={imagesQuery} /> */}
-        {/* <ImageGallery imagesQuery={imagesQuery} /> */}
-        {/* <Button /> */}
-        {/* {showModal && <Modal />} */}
-      </>
+      </div>
     );
   }
 }

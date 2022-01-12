@@ -7,7 +7,7 @@ export class ImageGallery extends Component {
 
     return (
       <ul className="ImageGallery">
-        {items.hits.map((item) => (
+        {items.map((item) => (
           <ImageGalleryItem key={item.id} image={item} />
         ))}
       </ul>

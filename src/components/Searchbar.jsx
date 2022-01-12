@@ -4,19 +4,7 @@ import api from "./images-api";
 export class SearchBar extends Component {
   state = {
     imageName: "",
-    listImg: "",
   };
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   const prevName = prevProps.imageName;
-  //   const nextName = this.props.imageName;
-  //   if (prevName !== nextName) {
-  //     api
-  //       .fetchImages(nextName)
-  //       .then((listImg) => this.setState({ listImg }))
-  //       .catch((error) => this.setState({ error }));
-  //   }
-  // }
 
   handleInput = (e) => {
     const { value } = e.target;
@@ -26,8 +14,10 @@ export class SearchBar extends Component {
   handleForm = (e) => {
     e.preventDefault();
 
-    this.props.submitForm(this.state.imageName);
-    this.setState({ imageName: "" });
+    if (this.state.imageName.trim()) {
+      this.props.submitForm(this.state.imageName);
+      this.setState({ imageName: "" });
+    }
   };
 
   render() {
