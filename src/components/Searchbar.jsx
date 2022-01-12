@@ -1,5 +1,4 @@
 import { Component } from "react";
-import api from "./images-api";
 
 export class SearchBar extends Component {
   state = {

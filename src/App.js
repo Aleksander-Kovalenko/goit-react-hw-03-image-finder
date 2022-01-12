@@ -1,17 +1,21 @@
 import { Component } from "react";
+import { TailSpin } from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 import "./App.css";
 import { Button } from "./components/Button";
 import { ImageGallery } from "./components/ImageGallery";
 import api from "./components/images-api";
-import { Modal } from "./components/Modal";
+// import { Modal } from "./components/Modal";
 import { SearchBar } from "./components/Searchbar";
 
 export class App extends Component {
   state = {
     imagesQuery: "",
     showModal: false,
-    isLoader: false,
+    isLoading: false,
     listImages: [],
+    currentImg: "",
     error: null,
     page: 1,
   };
@@ -28,6 +32,7 @@ export class App extends Component {
   getImages = () => {
     const { page, imagesQuery } = this.state;
     const options = { page, imagesQuery };
+    this.setState({ isLoading: true });
 
     api
       .fetchImages(options)
@@ -41,27 +46,38 @@ export class App extends Component {
           behavior: "smooth",
         });
       })
-      .catch((error) => this.setState({ error }));
+      .catch((error) => this.setState({ error }))
+      .finally(() => this.setState({ isLoading: false }));
+  };
+
+  getLargeImages = (image) => {
+    this.setState({ currentImg: image.largeImageURL });
   };
 
   handleForm = (query) => {
     this.setState({ imagesQuery: query, showButton: true });
   };
 
-  onToggleModal = () => {
-    this.setState({ showModal: !this.state.showModal });
-  };
+  // onToggleModal = () => {
+  //   this.setState({ showModal: !this.state.showModal });
+  // };
 
   render() {
-    const { showModal, listImages } = this.state;
+    const { listImages, isLoading } = this.state;
     return (
       <div className="App">
         <SearchBar submitForm={this.handleForm} />
         {listImages.length > 0 && (
           <>
-            <ImageGallery items={listImages} />
+            <ImageGallery items={listImages} currentImg={this.setLargeImg} />
             <Button handleClick={this.getImages} />
           </>
+        )}
+        {isLoading && (
+          <TailSpin
+            className="loader"
+            wrapperStyle={{ justifyContent: "center" }}
+          />
         )}
       </div>
     );
