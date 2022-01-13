@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { createPortal } from "react-dom";
 const modalRoot = document.querySelector("#modal-root");
+
 export class Modal extends Component {
   componentDidMount() {
     window.addEventListener("keydown", this.handleKeydown);
@@ -13,18 +14,18 @@ export class Modal extends Component {
   handleKeydown = (e) => {
     const { code } = e;
     if (code === "Escape") {
-      return;
+      this.props.onToggleModal();
     }
   };
   render() {
-    return (
-      createPortal(
-        <div className="Overlay">
-          <div className="Modal">
-            <img src="" alt="" />
-          </div>
+    const { image, tags } = this.props;
+
+    return createPortal(
+      <div className="Overlay">
+        <div className="Modal">
+          <img src={image} alt={tags} />
         </div>
-      ),
+      </div>,
       modalRoot
     );
   }
