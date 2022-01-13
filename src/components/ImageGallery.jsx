@@ -1,3 +1,4 @@
+import propTypes from "prop-types";
 import { Component } from "react/cjs/react.production.min";
 import { ImageGalleryItem } from "./ImageGalleryItem";
 
@@ -19,3 +20,7 @@ export class ImageGallery extends Component {
     );
   }
 }
+
+ImageGallery.propTypes = {
+  items: propTypes.array.isRequired,
+};

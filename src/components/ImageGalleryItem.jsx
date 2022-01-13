@@ -1,8 +1,19 @@
+import propTypes from "prop-types";
 import { Component } from "react";
 
 export class ImageGalleryItem extends Component {
+  state = {
+    selectedImages: "",
+    descImages: "",
+  };
   setImage = () => {
-    this.props.currentImg(this.props.largeImg, this.props.image.tags);
+    const {
+      largeImg,
+      currentImg,
+      image: { tags },
+    } = this.props;
+
+    currentImg(largeImg, tags);
   };
   render() {
     const { webformatURL, tags } = this.props.image;
@@ -18,3 +29,7 @@ export class ImageGalleryItem extends Component {
     );
   }
 }
+
+ImageGalleryItem.propTypes = {
+  image: propTypes.object.isRequired,
+};

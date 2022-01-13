@@ -1,3 +1,4 @@
+import propTypes from "prop-types";
 import { Component } from "react";
 
 export class SearchBar extends Component {
@@ -42,3 +43,7 @@ export class SearchBar extends Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  handleForm: propTypes.func.isRequired,
+};

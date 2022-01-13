@@ -51,13 +51,21 @@ export class App extends Component {
       .finally(() => this.setState({ isLoading: false }));
   };
 
-  getLargeImages = (image, tags) => {
-    this.setState({ currentImg: image, tags });
+  getLargeImages = (selectedImages, descImages) => {
+    this.setState({
+      currentImg: selectedImages,
+      tags: descImages,
+    });
+
     this.onToggleModal();
   };
 
   handleForm = (query) => {
-    this.setState({ imagesQuery: query, showButton: true });
+    this.setState({
+      imagesQuery: query,
+      showButton: true,
+      listImages: [],
+    });
   };
 
   onToggleModal = () => {
