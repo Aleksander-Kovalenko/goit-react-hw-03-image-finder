@@ -1,10 +1,11 @@
 import propTypes from "prop-types";
+import { LoadMore } from "./Gallery.styled";
 
 export const Button = ({ handleClick }) => {
   return (
-    <button type="submit" className="Button" onClick={handleClick}>
+    <LoadMore type="submit" onClick={handleClick}>
       Load More
-    </button>
+    </LoadMore>
   );
 };
 

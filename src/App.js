@@ -5,7 +5,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "./App.css";
 import { Button } from "./components/Button";
 import { ImageGallery } from "./components/ImageGallery";
-import api from "./components/images-api";
+import api from "./components/services/images-api";
 import { Modal } from "./components/Modal";
 import { SearchBar } from "./components/Searchbar";
 
@@ -74,10 +74,12 @@ export class App extends Component {
 
   render() {
     const { listImages, isLoading, showModal, currentImg, tags } = this.state;
+    const galleryImages = listImages.length > 0;
+
     return (
       <div className="App">
         <SearchBar submitForm={this.handleForm} />
-        {listImages.length > 0 && (
+        {galleryImages && (
           <>
             <ImageGallery items={listImages} currentImg={this.getLargeImages} />
             <Button handleClick={this.getImages} />

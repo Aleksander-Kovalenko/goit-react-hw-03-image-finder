@@ -1,13 +1,14 @@
 import propTypes from "prop-types";
-import { Component } from "react/cjs/react.production.min";
+import { Component } from "react";
 import { ImageGalleryItem } from "./ImageGalleryItem";
+import { ImageGalleryList } from "./Gallery.styled";
 
 export class ImageGallery extends Component {
   render() {
     const { items } = this.props;
 
     return (
-      <ul className="ImageGallery">
+      <ImageGalleryList>
         {items.map((item) => (
           <ImageGalleryItem
             key={item.id}
@@ -16,7 +17,7 @@ export class ImageGallery extends Component {
             currentImg={this.props.currentImg}
           />
         ))}
-      </ul>
+      </ImageGalleryList>
     );
   }
 }

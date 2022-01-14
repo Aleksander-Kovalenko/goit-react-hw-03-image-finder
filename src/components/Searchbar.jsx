@@ -1,5 +1,11 @@
-import propTypes from "prop-types";
 import { Component } from "react";
+import {
+  Header,
+  SearchForm,
+  FormButton,
+  FormButtonLabel,
+  FormInput,
+} from "./Gallery.styled";
 
 export class SearchBar extends Component {
   state = {
@@ -23,14 +29,13 @@ export class SearchBar extends Component {
   render() {
     const { imageName } = this.state;
     return (
-      <header className="Searchbar">
-        <form className="SearchForm" onSubmit={this.handleForm}>
-          <button type="submit" className="SearchForm-button">
-            <span className="SearchForm-button-label">Search</span>
-          </button>
+      <Header>
+        <SearchForm onSubmit={this.handleForm}>
+          <FormButton type="submit">
+            <FormButtonLabel>Search</FormButtonLabel>
+          </FormButton>
 
-          <input
-            className="SearchForm-input"
+          <FormInput
             type="text"
             autoComplete="off"
             autoFocus
@@ -38,12 +43,8 @@ export class SearchBar extends Component {
             onChange={this.handleInput}
             value={imageName}
           />
-        </form>
-      </header>
+        </SearchForm>
+      </Header>
     );
   }
 }
-
-SearchBar.propTypes = {
-  handleForm: propTypes.func.isRequired,
-};

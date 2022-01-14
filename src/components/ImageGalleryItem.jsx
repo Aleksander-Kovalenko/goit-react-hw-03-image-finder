@@ -1,5 +1,6 @@
 import propTypes from "prop-types";
 import { Component } from "react";
+import { GalleryItem, ImageGalleryItemImage } from "./Gallery.styled";
 
 export class ImageGalleryItem extends Component {
   state = {
@@ -18,14 +19,13 @@ export class ImageGalleryItem extends Component {
   render() {
     const { webformatURL, tags } = this.props.image;
     return (
-      <li className="ImageGalleryItem">
-        <img
-          className="ImageGalleryItem-image"
+      <GalleryItem>
+        <ImageGalleryItemImage
           src={webformatURL}
           alt={tags}
           onClick={() => this.setImage()}
         />
-      </li>
+      </GalleryItem>
     );
   }
 }
