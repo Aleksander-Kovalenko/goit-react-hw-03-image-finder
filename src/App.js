@@ -65,6 +65,7 @@ export class App extends Component {
       imagesQuery: query,
       showButton: true,
       listImages: [],
+      page: 1,
     });
   };
 
