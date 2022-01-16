@@ -3,10 +3,6 @@ import { Component } from "react";
 import { GalleryItem, ImageGalleryItemImage } from "./Gallery.styled";
 
 export class ImageGalleryItem extends Component {
-  state = {
-    selectedImages: "",
-    descImages: "",
-  };
   setImage = () => {
     const {
       largeImg,
