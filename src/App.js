@@ -1,6 +1,9 @@
 import { Component } from "react";
 import { TailSpin } from "react-loader-spinner";
+import { toast, ToastContainer } from "react-toastify";
+
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 import { Button } from "./components/Button";
@@ -8,6 +11,8 @@ import { ImageGallery } from "./components/ImageGallery";
 import api from "./components/services/images-api";
 import { Modal } from "./components/Modal";
 import { SearchBar } from "./components/Searchbar";
+
+// const notify = () => toast("Wow so easy!");
 
 export class App extends Component {
   state = {
@@ -61,6 +66,9 @@ export class App extends Component {
   };
 
   handleForm = (query) => {
+    if (query.trim().length === 0) {
+      return toast.info("Уточните запрос");
+    }
     this.setState({
       imagesQuery: query,
       showButton: true,
@@ -80,6 +88,7 @@ export class App extends Component {
     return (
       <div className="App">
         <SearchBar submitForm={this.handleForm} />
+        <ToastContainer autoClose={3000} />
         {galleryImages && (
           <>
             <ImageGallery items={listImages} currentImg={this.getLargeImages} />

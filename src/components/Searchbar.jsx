@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { ToastContainer, toast } from "react-toastify";
+
 import {
   Header,
   SearchForm,
@@ -15,15 +15,13 @@ export class SearchBar extends Component {
 
   handleInput = (e) => {
     const { value } = e.target;
+
     this.setState({ imageName: value });
   };
 
   handleForm = (e) => {
     e.preventDefault();
 
-    if (!this.state.imageName.trim()) {
-      return toast("hi");
-    }
     this.props.submitForm(this.state.imageName);
     this.setState({ imageName: "" });
   };
